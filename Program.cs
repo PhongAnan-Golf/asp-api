@@ -14,17 +14,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add CORS policy
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("AllowAll",
-//         builder =>
-//         {
-//             builder.AllowAnyOrigin()
-//                    .AllowAnyHeader()
-//                    .AllowAnyMethod();
-//                 //    .AllowCredentials();
-//         });
-// });
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
@@ -36,19 +25,6 @@ builder.Services.AddCors(options =>
                    .AllowCredentials();
         });
 });
-// builder.Services.AddCors(options =>
-// {
-//     // options.AddPolicy("AllowLocalhost",
-//     options.AddPolicy("AllowAll",
-//         builder =>
-//         {
-//             // builder.WithOrigins("http://127.0.0.1:5500" )
-//             builder.WithOrigins()
-//                    .AllowAnyHeader()
-//                    .AllowAnyMethod()
-//                    .AllowCredentials();
-//         });
-// });
 
 // Add Authentication
 builder.Services.AddAuthentication(IISDefaults.AuthenticationScheme);
@@ -56,19 +32,6 @@ builder.Services.AddDbContext<AppDbContext>(Options =>
 {
     Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-// // Configure Database Contexts for SQL Server
-// var connectionString1 = builder.Configuration.GetConnectionString("DefaultConnection");
-// // var connectionString2 = builder.Configuration.GetConnectionString("PeRequestConnection");
-
-// builder.Services.AddDbContext<AppDbContext>(options =>
-// {
-//     options.UseSqlServer(connectionString1);
-// });
-
-// builder.Services.AddDbContext<PeRequestDBContext>(options =>
-// {
-//     options.UseSqlServer(connectionString2);
-// });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEmployee, EmployeeRepository>();
 builder.Services.AddHttpContextAccessor();

@@ -30,7 +30,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000" ) // เปลี่ยนเป็นโดเมนของ Next.js ของคุณ
+            builder.WithOrigins("http://localhost:3000") // เปลี่ยนเป็นโดเมนของ Next.js ของคุณ
                    .AllowAnyHeader()
                    .AllowAnyMethod()
                    .AllowCredentials();
@@ -52,17 +52,18 @@ builder.Services.AddCors(options =>
 
 // Add Authentication
 builder.Services.AddAuthentication(IISDefaults.AuthenticationScheme);
-builder.Services.AddDbContext<AppDbContext>(Options =>{
-Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-// Configure Database Contexts for SQL Server
-var connectionString1 = builder.Configuration.GetConnectionString("DefaultConnection");
-// var connectionString2 = builder.Configuration.GetConnectionString("PeRequestConnection");
-
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(Options =>
 {
-    options.UseSqlServer(connectionString1);
+    Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+// // Configure Database Contexts for SQL Server
+// var connectionString1 = builder.Configuration.GetConnectionString("DefaultConnection");
+// // var connectionString2 = builder.Configuration.GetConnectionString("PeRequestConnection");
+
+// builder.Services.AddDbContext<AppDbContext>(options =>
+// {
+//     options.UseSqlServer(connectionString1);
+// });
 
 // builder.Services.AddDbContext<PeRequestDBContext>(options =>
 // {
